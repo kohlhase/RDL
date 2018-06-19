@@ -1,0 +1,54 @@
+***************************** ROAD MAP **********************************
+
+-- TOP LEVEL ------------------------------------------------------------
+
+* rdl.pl: top level functionalities and making up the system. 
+
+-- PROOF ENGINE ---------------------------------------------------------
+
+* reduce.pl: (contextual) reduction engine.
+
+-- THE DATABASE OF PROBLEMS ---------------------------------------------
+
+* problem.pl: predicates for accessing and manipulating the data base
+  of problems.
+* problems.pl: the database of problems.
+
+-- METHODS --------------------------------------------------------------
+
+* simplify.pl: methods for simplification.
+* ccr.pl: methods for CCR(X).
+* cs_extend: methods for context extension.
+* eq.pl: interface methods to the reasoning specialist based on the 
+  decision procedure for the theory of ground equality and with 
+  augmentation that can be enabled. 
+* la.pl: interface methods to the reasoning specialist based on the 
+  decision procedure for linear arithmetic with augmentation and 
+  affinization that can be enabled. 
+* eq_la.pl: interface methods to the reasoning specialist based on 
+  the decision procedure for the combination of the theory of ground 
+  equality and linear arithmetic with augmentation and affinization 
+  that can be enabled.
+
+-- DECISION PROCEDURES --------------------------------------------------
+
+* shostak.pl: decision procedure for ground equality based on (an
+  incremental version of) Shostak's congruence closure algorithm.
+* fourier.pl: Fourier-Motzkin's variable elimination (incremental)
+  decision procedure.  The current version is "incomplete" (i.e. it
+  may fail to detect inconsistency in some cases) for the sake of
+  efficiency.  
+
+-- LEMMA SPECULATION TECHNIQUE ------------------------------------------
+
+* augment.pl: support code for augmentation.
+* non_linear.pl: support code for affinization.
+
+-- MISCELLANEOUS --------------------------------------------------------
+
+* ordering.pl: ordering.
+* rewrite.pl: rewrite engine.
+* base.pl: basic functionalities.
+* normalise_lineq.pl: computation of a normal form representation of
+  linear facts.
+

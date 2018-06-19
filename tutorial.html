@@ -1,0 +1,315 @@
+<HTML>
+<HEAD>
+<TITLE> The Constraint Contextual Rewriting Project: RDL Tutorial </TITLE>
+<!-- Created by: Silvio Ranise, 14-Jan-2000 -->
+<META name="description" content="Constraint Contextual Rewriting Project Home Page: RDL Tutorial">
+<META name="keywords" content="Artificial Intelligence, Automated Reasoning,  Simplification, Rewriting, Contextual Rewriting, Conditional Rewriting, Ordered Rewriting, Decision Procedures, Logic Programming, Constraints, RDL">
+</HEAD>
+
+<BODY BGCOLOR="ccccbb" MARGINWIDTH=0 MARGINHEIGHT=0>
+<TABLE WIDTH="100%" BORDER=0 CELLSPACING=0 CELLPADDING=10>
+<TR>
+<TD &nbsp;</TD>
+<TD &nbsp;</TD>
+<TD &nbsp;</TD>
+</TR>
+<TR>
+<TD BGCOLOR="#ffffff" VALIGN="top">
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=2>
+  <TR><TD><A HREF="../index.html">Home</A></TD></TR>
+  <TR><TD><A HREF="../overview.html">Overview</A></TD></TR>
+  <TR><TD><A HREF="../publications.html">Publications</A></TD></TR>
+  <TR><TD><A HREF="../software.html">Software</A></TD></TR>
+  <TR><TD>&nbsp;&nbsp;<B>RDL Tutorial</B></TD></TR>
+  <TR><TD><A HREF="../related.html">Related links</A></TD></TR>
+  <TR><TD>&nbsp;</TD></TR>
+  <TR><TD>&nbsp;</TD></TR>
+  <TR><TD><B>People</B></TD></TR>
+  <TR><TD ALIGN="left"><A HREF="http://www.mrg.dist.unige.it/~armando/">Alessandro Armando</A></TD></TR>
+  <TR><TD ALIGN="left"><A HREF="mailto:armando@dist.unige.it">armando@dist.unige.it</A></TD></TR>
+  <TR><TD>&nbsp;</TD></TR>
+  <TR><TD ALIGN="left"><A HREF="http://www.mrg.dist.unige.it/~silvio/">Silvio Ranise</A></TD></TR>
+  <TR><TD ALIGN="left"><A HREF="mailto:silvio@dist.unige.it">silvio@dist.unige.it</A></TD></TR>
+  <TR><TD>&nbsp;</TD></TR>
+  <TR><TD ALIGN="left"><A HREF="http://www.mrg.dist.unige.it/~compa/">Luca Compagna</A></TD></TR>
+  <TR><TD ALIGN="left"><A HREF="mailto:compa@mrg.dist.unige.it">compa@mrg.dist.unige.it</A></TD></TR>
+  <TR><TD>&nbsp;</TD></TR>
+  <TR><TD>&nbsp;</TD></TR>
+  <TR><TD>&nbsp;</TD></TR>
+  <TR><TD><B>Affiliation</B></TD></TR>
+  <TR><TD ALIGN="left"><A HREF="http://www.mrg.dist.unige.it">MRG@DIST</A></TD></TR>
+  <TR><TD ALIGN="left"><A HREF="http://www.dist.unige.it">DIST</A></TD></TR>
+  <TR><TD ALIGN="left"><A HREF="http://www.unige.it">Universit&agrave di Genova</A></TD></TR>
+</TABLE>
+</TD>
+<TD &nbsp</TD>
+<TD VALIGN="top">
+
+<H1> The Constraint Contextual Rewriting Project: Software </H1>
+
+<H2> RDL Version 1.1: Tutorial </H2>
+
+<B>RDL</B> Version 1.1 is a system for clause simplification in a
+quantifier-free first-order logic with equality.  So its input is a
+pair of (quantifier-free first-order) clauses in Prolog-like syntax.
+The former is the clause to be simplified and the latter is the clause
+that the user aims to obtain from the simplification activity of
+<B>RDL</B>. (However, specifying the output clause is optional.)
+Running <B>RDL</B> on such a pair of clauses results in the final
+output
+
+<PRE>Status: ok!</PRE> 
+
+if the result of the simplfication activity of <B>RDL</B> is
+syntactically equivalent to the second clause proposed by the user,
+and
+
+<PRE>Status: failed!</PRE> 
+
+otherwise.
+
+<P>
+Notice that <B>RDL</B> always terminates.  This is because Constraint
+Contextual Rewriting (CCR) is terminating (see the paper <a href="../publications.html#ccr-frocos2000">[ccr-frocos2000]</a> for details) and the actual implementation of the system closely resembles the abstract characterization of CCR.
+</P>
+
+
+<P>
+Lets start a complete loop through the usage of <B>RDL</B>. Starting
+point is always the clause to be simplified.  Assume that you want to
+simplify to <EM>true</EM> the following clause:
+
+<P ALIGN="center">
+  not(x=<0) \/ rem(x*y,x)=0
+</P>
+
+where `not(_)' denotes the negation, `_>_' (`_*_') is the greater-than
+relation (multiplication, resp.) over integers, and `rem(_,_)' denotes
+the remainder of two integers defined in the usual way.  Furthermore,
+assume that you know the following fact about `rem' and `*':
+
+<P ALIGN="center">
+  not(U=<0) ==> rem(U*_,U)=0
+</P>
+
+where `_==>_' denotes implication.
+</P>
+
+<P>
+The first step is to write the given clause in the syntax accepted by
+<B>RDL</B>.  For the clause above, this is easly done and the result
+is the following Prolog list:
+
+<P ALIGN="center">
+  [not(x=<0), rem(x*y,x)=0].
+</P>
+
+Hence, a clause of the form ``L1 \/ L2 \/ ... \/ Ln'' (where Li is a
+literal for i=1, ..., n) is represented in <B>RDL</B> as [l1, l2, ...,
+ln], where li is the <B>RDL</B> representation of the literal 
+Li (for i=1, ..., n).  
+</P>
+
+<P>
+The next step is to provide <B>RDL</B> with an input file that
+contains exactly the above formulae (i.e. both the clause to be
+simplified and the fact about the relationship between `rem' and `*')
+in a Prolog-like syntax:
+
+<PRE>
+<B>description</B>(zhang_la_bis, 
+'Silvio Ranise',                 
+'A modified version of zhang_la which copes with  
+the ordering of Prolog terms.').                  
+<B>fact</B>(zhang_la_bis, rem_rew, [not(U=<0)],rem(U*_,U)=0). 
+<B>input</B>(zhang_la_bis, [rem(x*y,x)=0,x=<0]).              
+<B>expected_output</B>(zhang_la_bis, la, prolog, [true]).
+</PRE>
+</P>
+
+<P>
+An <B>RDL</B> input file consists of three parts, a description part
+(predicate <B>description</B>), a part where all the known facts about
+the function and predicate symbols occurring in the clause to be
+simplified are given (predicate <B>fact</B>), and a final part where
+both the clause to be simplified is presented (predicate <B>input</B>)
+and the expected simplified clause as well as two parameters of the
+system are given (predicate <B>expected_output</B>).  Let us consider
+each part in more details.
+</P>
+
+<P>
+<OL>
+    <LI> <B>description</B>(p, a, d): <EM>p</EM> is a Prolog constant
+         uniquely identifying the problem we are going to submit to
+         <B>RDL</B>, <EM>a</EM> is a Prolog string identifying the
+         author of the problem, and <EM>d</EM> is a Prolog string
+         containing a brief description of the problem.
+
+    <LI> <B>fact</B>(p, n, prem, concl): <EM>p</EM> is the Prolog
+         constant identifying the problem for which the fact can be
+         used, <EM>n</EM> is a Prolog constant uniquely identifying
+         the fact within the problem, <EM>prem</EM> is the list of
+         premises (i.e. literals) of the fact abd <EM>concl</EM> is
+         the conclusion (i.e. atom) of the fact.
+
+    <LI> <B>input</B>(p, clause): <EM>p</EM> is the Prolog constant
+         identifying the problem and <EM>clause</EM> is the clause to
+         be simplified.
+
+    <LI> <B>expected_output</B>(p, dp, ord, clause): <EM>p</EM> is the
+         Prolog constant identifying the problem, <EM>dp</EM> is the
+         decision procedure to be used (see <a href="#decproclist">below</a> for details), <EM>ord</EM> is the ordering to be used (again see <a href="#ordlist">below</a> for details), and <EM>clause</EM> is the clause the user aims to obtain from the simplification activity of the system.  Notice that the user is free to leave the expected output clause unspecified by writing a Prolog variable (such as `_') for <EM>clause</EM>.
+</OL>
+</P>
+
+<P>
+<B>RDL</B> must know two settings: 
+
+<OL>
+<LI> the <a name="decproclist">decision procedure</a> to use.  The user can select one
+     among the following:
+     <OL>
+     <LI> <EM><B>eq</B></EM>: a decision procedure for ground
+              equalities with the augmentation heuristics disabled,
+     <LI> <EM><B>aug(eq)</EM></B>: a decision procedure for ground
+              equalities with the augmentation heuristics enabled, 
+     <LI> <EM><B>la</EM></B>: a decision procedure for linear
+              arithmetic with the augmentation heuristics disabled, 
+     <LI> <EM><B>aug(la)</EM></B>: a decision procedure for linear
+              arithmetic with the augmentation heuristics enabled, 
+     <LI> <EM><B>aff(la)</EM></B>: a decision procedure for linear
+              arithmetic with the affinization technique enabled so to
+              handle non-linear inequalities of the form <EM>s*t =<
+              K</EM>, where <EM>s</EM> and <EM>t</EM> are first order
+              terms interpreted as integers, and <EM>K</EM> is a
+              non-negative integer.
+     <LI> <EM><B>aug_aff(la)</EM></B>: a decision procedure for linear
+              arithmetic with a combination of the augmentation and
+              the affinization techniques enabled so to combine the
+              flexibility of the former and the degree of automation
+              of the latter.
+     <LI> <EM><B>eq_la</EM></B>: a combination of a decision
+              procedure for ground equalties and a decision procedure
+              for linear arithmetic over integers.
+     <LI> <EM><B>aug(eq_la)</EM></B>: a combination of a decision
+              procedure for ground equalties and a decision procedure
+              for linear arithmetic with the augmentation heuristics
+              enabled. 
+     <LI> <EM><B>aff(eq_la)</EM></B>: a combination of a decision
+              procedure for ground equalties and a decision procedure
+              for linear arithmetic with the affinization technique 
+	      enabled.
+     <LI> <EM><B>aug_aff(eq_la)</EM></B>: a combination of a decision
+              procedure for ground equalties and a decision procedure
+              for linear arithmetic over integers with a combination 
+	      of the augmentation and the affinization techniques 
+	      enabled so to combine the flexibility of the former and 
+	      the degree of automation of the latter.
+     </OL>
+<LI> the <a name="ordlist">ordering</a> (if any) to use.  The user can
+     select among two options:
+     <OL>
+     <LI> <EM><B>prolog</EM></B>: the standard Prolog total ordering
+          over terms (<a href="http://www.sicstus.org/isl/sicstus/docs/3.8.1/html/sicstus.html#Term%20Compare">see the SICStus manual for details</a>), 
+     <LI> <EM><B>none</EM></B>: the ordering is disabled.
+     </OL>
+</OL>
+
+Choosing an appropriate order is important for the particular form of
+rewriting we have adopted in Constraint Contextual Rewriting and hence
+in <B>RDL</B>.  We perform a form of ordered (conditional) rewriting
+for which we assume that there exists a total ordering over ground
+terms.  The ordering is also important for the augmentation
+heuristics.  (For details, see the paper <a href="../publications.html#ccr-frocos2000">[ccr-frocos2000]</a>.)
+</P>
+
+Then after issuing the command 
+
+<P align="center">
+<B>run</B>(zhang_la_bis, la, prolog).
+</P>
+
+<B>RDL</B> tries to simplify the input clause until it finds the
+simplified clause specified by the user or it is not able to perform
+more simplification steps.  In the case of our example, the output of
+<B>RDL</B> should be similar to the following:
+
+<PRE>
+<B>Problem</B>: zhang_la_bis  
+<B>Decision Procedure</B>: linear arithmetic with augmentation disabled.
+<B>Ordering</B>: Standard.
+<B>Input Formula</B>: 		[x*y rem x=0,x=<0]
+<B>Expected Formula</B>: 	[true]
+<B>Simplified Formula</B>: 	[true]
+<B>Status</B>: ok!
+<B>Strategy</B>: osimp:[cl_simp:[cs_extend:[cs_add:[push_poly]],
+crew:[crew_rlv:[cxt_entails_true:[cs_extend:[cs_add:
+[push_poly>push_poly]]]]]>cxt_entails_true:[cs_extend:
+[cs_add:[push_poly]]]]>cl_true]
+<B>Time</B> (Elapsed-Theorem Proving): 30-10 msec
+</PRE>
+
+Firstly, <B>RDL</B> reminds the problem it is dealing with.  Then, it
+recalls the decision procedure used and if augmentation is enabled,
+which ordering is used, the input clause, and the user-expected
+clause.  Then, after some simplification activity, it prints the ok
+status if it was able to find a simplification strategy that reduces
+the input clause to the one desired by the user, failed otherwise.
+Then it prints the simplified clause and then, the simplification
+strategy, i.e. the combination of Constraint Contextual Rewriting
+rules that allows to reduce the input to the output clause.  The last
+line reports the timings: the former is the time elapsed from the
+moment the user entered the run command and the latter is the time
+devoted to searching for the expected output clause.
+</P>
+
+<P>
+There is one command of <B>RDL</B> that we have not covered above: the
+predicate <B>pred_sym</B>.  Its use is best illustrated with the
+following problem:
+<PRE>
+<B>description</B>(bm95, 
+'Alessandro Armando', 
+'This is an example taken from the paper 
+"Integrating Decision Procedures in Heuristic Theorem Provers: ..."
+by Boyer and Moore, page 95.  Notice that we must disable the ordering.').
+<B>pred_sym</B>(bm95, memb(_,_)).
+<B>fact</B>(bm95, len_del_less_len, [memb(X,S)],len(del(X,S))< len(S)). 
+<B>input</B>(bm95, [not(w>=0), not(k>=0), not(z>=0), not(v>=0),
+             not(memb(z,b)),not(w+len(b)=< k), w+len(del(z,b))< k+v]). 
+<B>expected_output</B>(bm95, la_aug, none, [true]).
+</PRE>
+
+The line <B>pred_sym</B>(bm95, memb(_,_)). tells <B>RDL</B> to
+consider `memb' as an interpreted predicate symbol by the decision
+procedure (similarly to, e.g., > and >= for the linear arithmetic
+decision procedure) because it appears in the precondition of the
+fact: <B>fact</B>(bm95, len_del_less_len, [memb(X,S)],len(del(X,S))<
+len(S)).  
+</P>
+
+<HR>
+
+<P ALIGN="center">
+  [ <A HREF="index.html">Home</A>
+  | <A HREF="overview.html">Overview</A>
+  | <A HREF="publications.html">Publications</A>
+  | <A HREF="../software.html">Software</A>: <B>RDL Tutorial</B>
+  | <A HREF="../related.html">Related links</A>
+  ]
+</P>
+<HR>
+<P>
+<small>
+This web site is maintained by Silvio Ranise. <BR>
+URL: <A HREF="http://www.mrg.dist.unige.it/~silvio/">Silvio Ranise</A> <BR>
+Email: <A HREF="mailto:silvio@dist.unige.it">silvio@dist.unige.it</A> <BR>
+Last updated: 22-Jan-2001
+</small>
+</P>
+</TD>
+</TR>
+</TABLE>
+</BODY>
+</HTML>

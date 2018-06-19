@@ -1,0 +1,7 @@
+#!/bin/bash
+
+tmp=`pwd`
+
+export SP_PATH="$tmp/lib/sicstus-3.8.5"
+
+echo "SP_PATH is set to $tmp/lib/sicstus-3.8.5"
