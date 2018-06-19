@@ -23,5 +23,3 @@ Now you should be able to execute RDL v. 1.1.  Please see the README
 file for informations about the command line options of RDL.
 
 The current distribution has been tested with bash shell only so far.
-Should you encounter any difficulty in installing and running RDL on your
-machine, please send us a message to rdl-support@mrg.dist.unige.it
