@@ -74,23 +74,15 @@ problems.pl    - contains a set of problems.
 tutorial.html  - an HTML document describing a typical interaction with
                  RDL via a worked out example.
 
-MAILING LIST
---------------------
-
-You can use two mailing list:
-
-rdl-support@mrg.dist.unige.it   - to send messages to the RDL team
-rdl-users@mrg.dist.unige.it     - to exchange messages with other RDL users
-
 RDL TEAM
 --------
 
-Alessandro Armando      armando@dist.unige.it 
-			www.mrg.dist.unige.it/~armando
-Silvio Ranise           silvio@dist.unige.it 
-			www.mrg.dist.unige.it/~silvio
-Luca Compagna           compa@mrg.dist.unige.it 
-			www.mrg.dist.unige.it/~compa
+Alessandro Armando      alessandro.armando@unige.it 
+Silvio Ranise           ranise@fbk.eu
+Luca Compagna           luca.compagna@sap.com
+
+RDL was developed when the authors were all affiliated with the University of Genova.
+
 
 Address:                DIST -- Universita' degli Studi di Genova
                         Viale Causa 13
@@ -98,21 +90,4 @@ Address:                DIST -- Universita' degli Studi di Genova
                         ITALIA
 
 Project    :     Constraint Contextual Rewriting 
-Project URL:     www.mrg.dist.unige.it/ccr/
-
-Send bug-reports and/or questions to: rdl-support@mrg.dist.unige.it
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
