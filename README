@@ -1,0 +1,93 @@
+RDL v. 1.1
+===========
+
+Please take a look to the file LICENSE before proceeding further.
+
+This software is being developed as a research tool.  We continue to
+make significant changes to it.  This is a "alpha" release which
+we are doing primarily in order to get feedback.  We want to know what
+you think of RDL, so please send comments to us at 
+rdl-users@mrg.dist.unige.it.
+
+As mentioned in the file named INSTALL you can execute RDL v. 1.1 to 
+issue one among the following two commands at the shell prompt:
+
+  "rdl OPTION"
+  "rdl FILE [OPTIONS]" 
+
+where:
+
+* OPTION:
+  -h,  --help       display this help and exit
+  -v,  --version    output version information and exit
+  -ex, --examples   output some examples of usage of the RDL executable
+
+* OPTIONS:
+  -ord=ORD, --ordering=ORD   ORD is the ordering used.
+                             Currently accepted values:
+                               'prolog': lexicographics prolog ordering is used
+                               'none'  : no ordering is used
+  -pb=PB,    --problem=PB    PB is the problem's name
+  -rs=RS                     RS is the reasoning specialist used.
+                             Currently accepted values:
+                               'eq'             : theory of ground equality
+                               'la'             : linear arithmetic over 
+                                                  integers
+                               'eq_la'          : combination of the theory of 
+                                                  ground equality and linear 
+                                                  arithmetic over integers
+                               'aug(eq)'        : theory of ground equality 
+                                                  with augmentation enabled
+                               'aug(la)'        : linear arithmetic over 
+                                                  integers with augmentation 
+                                                  enabled
+                               'aug(eq_la)'     : combination of the theory of 
+                                                  ground equalityand linear 
+                                                  arithmetic over integers with 
+                                                  augmentation enabled
+                               'aff(la)'        : linear arithmetic over 
+                                                  integers with affinization 
+                                                  enabled
+                               'aff(eq_la)'     : combination of the theory of 
+                                                  ground equalityand linear 
+                                                  arithmetic over integers with 
+                                                  affinization enabled
+                               'aug_aff(la)'    : linear arithmetic over 
+                                                  integers with a combination 
+                                                  of augmentation and 
+                                                  affinization enabled
+                               'aug_aff(eq_la)' : combination of the theory of 
+                                                  ground equality and linear 
+                                                  arithmetic over integers with 
+                                                  a combination of augmentation 
+                                                  and affinization enabled
+
+* FILE is the file containing a data base of problems. (See the RDL user manual 
+  for the format)
+
+FURTHER INFORMATION
+--------------------
+
+Further information can be found in the following files:
+
+problems.pl    - contains a set of problems.
+tutorial.html  - an HTML document describing a typical interaction with
+                 RDL via a worked out example.
+
+RDL TEAM
+--------
+
+Alessandro Armando      alessandro.armando@unige.it 
+Silvio Ranise           ranise@fbk.eu
+Luca Compagna           luca.compagna@sap.com
+
+RDL was developed when the authors were all affiliated with the University of Genova.
+
+
+Address:                DIST -- Universita' degli Studi di Genova
+                        Viale Causa 13
+                        16145 Genova 
+                        ITALIA
+
+Project    :     Constraint Contextual Rewriting 
+

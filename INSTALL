@@ -1,0 +1,25 @@
+RDL v. 1.1
+===========
+
+Please take a look to the file LICENSE before proceeding further.
+
+This software is being developed as a research tool.  We continue to
+make significant changes to it.  This is a "alpha" release which
+we are doing primarily in order to get feedback.  We want to know what
+you think of RDL, so please send comments to us at 
+rdl-users@mrg.dist.unige.it.
+
+INSTALLATION PROCEDURE:
+=======================
+
+In order to execute RDL v. 1.1 you need to set the environment
+variable SP_PATH.  If the file 'rdl' is rooted in `/home/rdl-1.1/',
+then `SP_PATH' should be set to `/home/rdl-1.1/lib/sicstus-3.8.5'
+(please use absolute path).  If you work with bash shell then you can
+run 'source rdl_setenv' command in the directory `/home/rdl-1.1' to
+automatic set of the environment variable SP_PATH.
+
+Now you should be able to execute RDL v. 1.1.  Please see the README
+file for informations about the command line options of RDL.
+
+The current distribution has been tested with bash shell only so far.
